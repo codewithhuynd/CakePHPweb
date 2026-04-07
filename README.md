@@ -1,58 +1,252 @@
-# CakePHP Application Skeleton
+# 📚 Thư Viện Sách - CakePHP Framework
+> Lập Trình PHP | Giữa Kỳ
 
-![Build Status](https://github.com/cakephp/app/actions/workflows/ci.yml/badge.svg?branch=5.x)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
-[![PHPStan](https://img.shields.io/badge/PHPStan-level%208-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
+---
 
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 5.x.
+## 🛠️ Yêu cầu hệ thống
 
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+| Công cụ | Version |
+|---------|---------|
+| PHP | 8.1 trở lên |
+| MySQL | 5.7 trở lên |
+| Composer | 2.x |
+| XAMPP | 8.1+ |
 
-## Installation
+---
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
+## 🚀 Hướng dẫn cài đặt (cho XAMPP)
 
-If Composer is installed globally, run
+### Bước 1: Cài Composer
 
-```bash
-composer create-project --prefer-dist cakephp/app
+Tải và cài:
+```
+https://getcomposer.org/Composer-Setup.exe
 ```
 
-In case you want to use a custom app dir name (e.g. `/myapp/`):
-
+Mở **Command Prompt** kiểm tra:
 ```bash
-composer create-project --prefer-dist cakephp/app myapp
+composer --version
 ```
 
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
+### Bước 2: Kiểm tra PHP version
 
 ```bash
-bin/cake server -p 8765
+php -v
 ```
 
-Then visit `http://localhost:8765` to see the welcome page.
 
-## Demo app
+❌ Nếu không nhận PHP → Làm như sau:
+```
+1. Nhấn Win + S → tìm "Environment Variables"
+2. System Variables → Path → Edit → New
+3. Thêm vào: C:\xampp\php
+4. OK → OK → OK
+5. Mở lại Command Prompt → kiểm tra lại
+```
 
-Check out the [5.x-demo branch](https://github.com/cakephp/app/tree/5.x-demo), which contains demo migrations and a seeder.
-See the [README](https://github.com/cakephp/app/blob/5.x-demo/README.md) on how to get it running.
+---
 
-## Update
+### Bước 3: Clone project về máy
 
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
+Mở **Command Prompt**, chạy từng lệnh:
+```bash
+cd C:\xampp\htdocs
+git clone https://github.com/codewithhuynd/CakePHPweb.git
+cd CakePHPweb
+```
 
-## Configuration
 
-Read and edit the environment specific `config/app_local.php` and set up the
-`'Datasources'` and any other configuration relevant for your application.
-Other environment agnostic settings can be changed in `config/app.php`.
+Nếu chưa có Git, tải tại:
+```
+https://git-scm.com/download/win
+```
 
-## Layout
+---
 
-The app skeleton uses [Milligram](https://milligram.io/) (v1.3) minimalist CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
+### Bước 4: Cài dependencies
+
+```bash
+composer install
+```
+
+✅ Thấy dòng `Generating autoload files` = Thành công
+
+---
+
+### Bước 5: Tạo file cấu hình
+
+Chạy 2 lệnh sau trong Command Prompt:
+```bash
+copy .env.example .env
+copy config\app_local.example.php config\app_local.php
+```
+
+---
+
+### Bước 6: Sửa file .env
+
+Mở file `.env` bằng Notepad hoặc VSCode
+
+Sửa lại toàn bộ nội dung thành:
+```ini
+APP_FULL_BASE_URL="http://localhost/TEN_REPO"
+APP_DEFAULT_DATASOURCE_HOST=localhost
+APP_DEFAULT_DATASOURCE_USERNAME=root
+APP_DEFAULT_DATASOURCE_PASSWORD=
+APP_DEFAULT_DATASOURCE_DATABASE=project-app_db
+SECURITY_SALT=projectapp2026GiuaKyCakeFrameworkLapTrinhPHP
+DEBUG=true
+```
+
+> ⚠️ Thay `TENREPO` bằng tên thư mục thật
+> Ví dụ nếu clone vào `C:\xampp\htdocs\project-app`
+> thì sửa thành `APP_FULL_BASE_URL="http://localhost/project-app"`
+
+---
+
+### Bước 7: Tạo Database
+
+```
+1. Mở XAMPP Control Panel
+2. Click Start cạnh Apache
+3. Click Start cạnh MySQL
+4. Mở trình duyệt vào: http://localhost/phpmyadmin
+5. Bên trái click "New"
+6. Database name: project-app_db
+7. Charset: utf8mb4_unicode_ci
+8. Click "Create"
+```
+
+---
+
+### Bước 8: Import dữ liệu vào Database
+
+```
+1. Click vào "project-app_db" bên trái
+2. Click tab "SQL" trên thanh menu
+3. Dùng file .sql đã gửi
+4. Copy toàn bộ nội dung file đó
+5. Paste vào ô SQL trên phpMyAdmin
+6. Click "Go"
+```
+
+✅ Thấy 4 bảng xuất hiện bên trái:
+```
+project-app_db
+├── books
+├── borrows
+├── categories
+└── users
+```
+
+---
+
+### Bước 9: Cấu hình .htaccess
+
+Mở file `webroot\.htaccess` bằng Notepad hoặc VSCode
+
+Tìm dòng:
+```
+RewriteBase /
+```
+
+Sửa thành:
+```
+RewriteBase /TEN_REPO/
+```
+
+> ⚠️ Thay `TENREPO` bằng tên thư mục thật
+> Ví dụ: `RewriteBase /project-app/`
+
+Lưu file lại
+
+---
+
+### Bước 10: Bật mod_rewrite trong XAMPP
+
+```
+1. Mở XAMPP Control Panel
+2. Click "Config" cạnh chữ Apache
+3. Chọn "httpd.conf"
+4. File mở ra → nhấn Ctrl + F tìm:
+   #LoadModule rewrite_module
+5. Xóa dấu # ở đầu dòng đó:
+   LoadModule rewrite_module modules/mod_rewrite.so
+6. Lưu file (Ctrl + S)
+7. Quay lại XAMPP → Click "Stop" Apache
+8. Click "Start" Apache lại
+```
+
+---
+
+### Bước 11: Kiểm tra hoạt động
+
+Mở trình duyệt, truy cập:
+```
+http://localhost/TEN_REPO/books
+```
+
+✅ Thấy trang danh sách sách = Cài đặt thành công
+
+---
+
+## 🔌 API Endpoints
+
+Truy cập trực tiếp trên trình duyệt:
+
+| Method | URL | Chức năng |
+|--------|-----|-----------|
+| GET | `/api/books.json` | Danh sách sách |
+| GET | `/api/books/{id}.json` | Chi tiết 1 sách |
+| GET | `/api/categories.json` | Danh sách danh mục |
+
+---
+
+## Các lỗi thường gặp
+
+**Lỗi 1: Trang trắng hoặc 404**
+```
+→ Kiểm tra lại Bước 9 và Bước 10
+→ Đảm bảo mod_rewrite đã bật
+→ Đảm bảo RewriteBase đúng tên thư mục
+```
+
+**Lỗi 2: Không kết nối được Database**
+```
+→ Kiểm tra XAMPP đã Start MySQL chưa
+→ Kiểm tra file .env đúng tên database chưa
+→ Kiểm tra đã tạo database project-app_db chưa
+```
+
+**Lỗi 3: composer install báo lỗi PHP version**
+```
+→ Kiểm tra lại Bước 2
+→ Đảm bảo PHP trong PATH là của XAMPP
+→ Path: C:\xampp\php
+```
+
+**Lỗi 4: Not Found khi click menu**
+```
+→ Kiểm tra lại file .env
+→ APP_FULL_BASE_URL phải đúng tên thư mục
+```
+
+---
+
+## 📁 Cấu trúc thư mục quan trọng
+
+```
+project/
+├── .env.example          ← Copy thành .env rồi sửa
+├── config/
+│   ├── app.php           ← Không sửa
+│   ├── app_local.php     ← Tự động tạo ở Bước 5
+│   └── app_local.example.php ← File mẫu
+├── src/
+│   └── Controller/       ← Code xử lý
+├── templates/            ← Giao diện
+└── webroot/
+    └── .htaccess         ← Sửa RewriteBase ở Bước 9
+```
+
+---
