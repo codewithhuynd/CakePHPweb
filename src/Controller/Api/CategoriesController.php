@@ -7,10 +7,14 @@ use App\Controller\AppController;
 
 class CategoriesController extends AppController
 {
+    protected $loadModel = ['Categories'];
+
     public function initialize(): void
     {
+        
         parent::initialize();
         // Fix tiếng Việt không bị mã hóa unicode
+        
         $this->response = $this->response
             ->withCharset('UTF-8');
     }
