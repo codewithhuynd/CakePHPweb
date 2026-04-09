@@ -8,6 +8,7 @@ use function Cake\Core\env;
  * Note: It is not recommended to commit files with credentials such as app_local.php
  * into source code version control.
  */
+
 return [
     /*
      * Debug Level:
@@ -93,5 +94,9 @@ return [
             'client' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
+    ],
+
+    'App' => [
+        'fullBaseUrl' => 'http://localhost:8765',
     ],
 ];
