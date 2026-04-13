@@ -2,7 +2,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="fw-bold">Users</h3>
-        <?= $this->Html->link(__('+ New User'), ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
+        <?= $this->Html->link(__('Thêm người dùng'), ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
     </div>
 
     <div class="card shadow-sm">
@@ -34,13 +34,24 @@
                             <td><?= h($user->created) ?></td>
                             <td><?= h($user->modified) ?></td>
                             <td class="text-center">
-                                <?= $this->Html->link('View', ['action' => 'view', $user->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
-                                <?= $this->Html->link('Edit', ['action' => 'edit', $user->id], ['class' => 'btn btn-sm btn-outline-warning']) ?>
+                                <?= $this->Html->link(
+                                    '<i class="fas fa-eye"></i>',
+                                    ['action' => 'view', $user->id],
+                                    ['class' => 'btn btn-sm btn-outline-info me-1', 'escape' => false]
+                                ) ?>
+
+                                <?= $this->Html->link(
+                                    '<i class="fas fa-edit"></i>',
+                                    ['action' => 'edit', $user->id],
+                                    ['class' => 'btn btn-sm btn-outline-warning me-1', 'escape' => false]
+                                ) ?>
+
                                 <?= $this->Form->postLink(
-                                    'Delete',
+                                    '<i class="fas fa-trash"></i>',
                                     ['action' => 'delete', $user->id],
                                     [
                                         'class' => 'btn btn-sm btn-outline-danger',
+                                        'escape' => false,
                                         'confirm' => __('Are you sure you want to delete # {0}?', $user->id),
                                     ]
                                 ) ?>

@@ -2,7 +2,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="fw-bold">📦 Quản lý mượn sách</h3>
-        <?= $this->Html->link('➕ Mượn sách', ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
+        <?= $this->Html->link('Đăng ký mượn sách', ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
     </div>
 
     <div class="card shadow-lg rounded-4">
@@ -55,13 +55,24 @@
                             </td>
 
                             <td class="text-center">
-                                <?= $this->Html->link('👁', ['action' => 'view', $borrow->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
-                                <?= $this->Html->link('✏', ['action' => 'edit', $borrow->id], ['class' => 'btn btn-sm btn-outline-warning']) ?>
+                                <?= $this->Html->link(
+                                    '<i class="fas fa-eye"></i>',
+                                    ['action' => 'view', $borrow->id],
+                                    ['class' => 'btn btn-sm btn-outline-info me-1', 'escape' => false]
+                                ) ?>
+
+                                <?= $this->Html->link(
+                                    '<i class="fas fa-edit"></i>',
+                                    ['action' => 'edit', $borrow->id],
+                                    ['class' => 'btn btn-sm btn-outline-warning me-1', 'escape' => false]
+                                ) ?>
+
                                 <?= $this->Form->postLink(
-                                    '🗑',
+                                    '<i class="fas fa-trash"></i>',
                                     ['action' => 'delete', $borrow->id],
                                     [
                                         'class' => 'btn btn-sm btn-outline-danger',
+                                        'escape' => false,
                                         'confirm' => __('Bạn chắc chắn muốn xóa #{0}?', $borrow->id),
                                     ]
                                 ) ?>
