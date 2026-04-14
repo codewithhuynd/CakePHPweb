@@ -24,7 +24,7 @@
             <div class="modal-content rounded-3 shadow">
                 <div class="modal-header bg-danger text-white">
                     <h5 class="modal-title">
-                        <i class="fas fa-exclamation-triangle me-2"></i>Lỗi đăng nhập
+                        <i class="fas fa-exclamation-triangle me-2"></i>Error
                     </h5>
                 </div>
                 <div class="modal-body text-center">
