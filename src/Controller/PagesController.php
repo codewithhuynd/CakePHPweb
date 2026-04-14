@@ -60,7 +60,9 @@ class PagesController extends AppController
             $books = $booksTable->find()->contain(['Categories']);
             $categories = $categoriesTable->find();
 
-            $this->set(compact('books', 'categories'));
+            $user = $this->request->getSession()->read('Auth');
+
+            $this->set(compact('books', 'categories', 'user'));
         }
 
         $page = $subpage = null;
@@ -72,7 +74,8 @@ class PagesController extends AppController
             $subpage = $path[1];
         }
 
-        $this->set(compact('page', 'subpage'));
+        $user = $this->request->getSession()->read('Auth');
+        $this->set(compact('page', 'subpage', 'user'));
 
         try {
             return $this->render(implode('/', $path));

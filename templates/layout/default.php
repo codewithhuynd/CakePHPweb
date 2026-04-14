@@ -66,16 +66,28 @@
             ['controller' => 'Pages', 'action' => 'display', 'home'],
             ['class' => 'navbar-brand fw-bold', 'escape' => false]
         ) ?>
+        <?php
+        $user = $this->request->getSession()->read('Auth');
+        $controller = $this->request->getParam('controller');
+        $action = $this->request->getParam('action');
+        ?>
+
+        <?php if (!($controller === 'Users' && $action === 'login')): ?>
+
         <div class="ms-auto d-flex align-items-center">
             <span class="text-white me-3">
-                <i class="fas fa-user me-1"></i>Admin
+                <i class="fas fa-user me-1"></i>
+                <?= h($user->username ?? 'Guest') ?>
             </span>
+
             <?= $this->Html->link(
                 '<i class="fas fa-sign-out-alt me-1"></i>Đăng xuất',
-                ['controller' => 'Users', 'action' => 'login'],
+                ['controller' => 'Users', 'action' => 'logout'],
                 ['class' => 'btn btn-outline-light btn-sm', 'escape' => false]
             ) ?>
         </div>
+
+        <?php endif; ?>
     </div>
 </nav>
 
@@ -84,62 +96,62 @@
     <div class="row">
 
         <!-- Sidebar -->
-        <div class="col-md-2 px-0 sidebar">
-            <div class="py-3">
-                <p class="text-muted px-3 small fw-bold text-uppercase mt-2">
-                    Menu chính
-                </p>
-                <nav class="nav flex-column">
-                    <?= $this->Html->link(
-                        '<i class="fas fa-home me-2"></i>Trang chủ',
-                        ['controller' => 'Pages', 'action' => 'display', 'home'],
-                        ['class' => 'nav-link', 'escape' => false]
-                    ) ?>
-                    <?= $this->Html->link(
-                        '<i class="fas fa-book me-2"></i>Quản lý sách',
-                        ['controller' => 'Books', 'action' => 'index'],
-                        ['class' => 'nav-link', 'escape' => false]
-                    ) ?>
-                    <?= $this->Html->link(
-                        '<i class="fas fa-tags me-2"></i>Danh mục',
-                        ['controller' => 'Categories', 'action' => 'index'],
-                        ['class' => 'nav-link', 'escape' => false]
-                    ) ?>
-                    <?= $this->Html->link(
-                        '<i class="fas fa-users me-2"></i>Người dùng',
-                        ['controller' => 'Users', 'action' => 'index'],
-                        ['class' => 'nav-link', 'escape' => false]
-                    ) ?>
-                    <?= $this->Html->link(
-                        '<i class="fas fa-hand-holding-heart me-2"></i>Mượn sách',
-                        ['controller' => 'Borrows', 'action' => 'index'],
-                        ['class' => 'nav-link', 'escape' => false]
-                    ) ?>
-                </nav>
+        <?php if ($user && $user->role === 'admin'): ?>
 
-                <hr>
+            <div class="col-md-2 px-0 sidebar">
+                <div class="py-3">
+                    <nav class="nav flex-column">
+                        <?= $this->Html->link(
+                            '<i class="fas fa-home me-2"></i>Trang chủ',
+                            ['controller' => 'Pages', 'action' => 'display', 'home'],
+                            ['class' => 'nav-link', 'escape' => false]
+                        ) ?>
+                        <?= $this->Html->link(
+                            '<i class="fas fa-book me-2"></i>Quản lý sách',
+                            ['controller' => 'Books', 'action' => 'index'],
+                            ['class' => 'nav-link', 'escape' => false]
+                        ) ?>
+                        <?= $this->Html->link(
+                            '<i class="fas fa-tags me-2"></i>Danh mục',
+                            ['controller' => 'Categories', 'action' => 'index'],
+                            ['class' => 'nav-link', 'escape' => false]
+                        ) ?>
+                        <?= $this->Html->link(
+                            '<i class="fas fa-users me-2"></i>Người dùng',
+                            ['controller' => 'Users', 'action' => 'index'],
+                            ['class' => 'nav-link', 'escape' => false]
+                        ) ?>
+                        <?= $this->Html->link(
+                            '<i class="fas fa-hand-holding-heart me-2"></i>Mượn sách',
+                            ['controller' => 'Borrows', 'action' => 'index'],
+                            ['class' => 'nav-link', 'escape' => false]
+                        ) ?>
+                    </nav>
 
-                <p class="text-muted px-3 small fw-bold text-uppercase">
-                    API
-                </p>
-                <nav class="nav flex-column">
-                    <?= $this->Html->link(
-                        '<i class="fas fa-code me-2"></i>API Books',
-                        ['controller' => 'Books', 'action' => 'index', '_ext' => 'json', 'prefix' => 'Api'],
-                        ['class' => 'nav-link', 'escape' => false, 'target' => '_blank']
-                    ) ?>
-                    <?= $this->Html->link(
-                        '<i class="fas fa-code me-2"></i>API Categories',
-                        ['controller' => 'Categories', 'action' => 'index', '_ext' => 'json', 'prefix' => 'Api'],
-                        ['class' => 'nav-link', 'escape' => false, 'target' => '_blank']
-                    ) ?>
-                </nav>
+                    <hr>
+
+                    <nav class="nav flex-column">
+                        <?= $this->Html->link(
+                            '<i class="fas fa-code me-2"></i>API Books',
+                            ['controller' => 'Books', 'action' => 'index', '_ext' => 'json', 'prefix' => 'Api'],
+                            ['class' => 'nav-link', 'escape' => false, 'target' => '_blank']
+                        ) ?>
+                        <?= $this->Html->link(
+                            '<i class="fas fa-code me-2"></i>API Categories',
+                            ['controller' => 'Categories', 'action' => 'index', '_ext' => 'json', 'prefix' => 'Api'],
+                            ['class' => 'nav-link', 'escape' => false, 'target' => '_blank']
+                        ) ?>
+                    </nav>
+                </div>
             </div>
-        </div>
+
+            <?php endif; ?>
 
         <!-- Main Content -->
         <div class="col-md-10 py-4 px-4">
-            <?= $this->Flash->render() ?>
+            <?php
+            echo $this->Flash->render();
+            ?>
             <?= $this->fetch('content') ?>
         </div>
 

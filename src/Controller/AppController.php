@@ -49,4 +49,26 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
     }
+
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+
+        $session = $this->request->getSession();
+        $user = $session->read('Auth');
+
+        $allowed = [
+            'Users/login',
+            'Users/logout'
+        ];
+
+        $current = $this->request->getParam('controller') . '/' . $this->request->getParam('action');
+
+        if (!$user && !in_array($current, $allowed)) {
+            return $this->redirect([
+                'controller' => 'Users',
+                'action' => 'login'
+            ]);
+        }
+    }
 }

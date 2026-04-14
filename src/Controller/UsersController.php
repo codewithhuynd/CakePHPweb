@@ -97,4 +97,49 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function login()
+    {
+        $this->viewBuilder()->setLayout('login');
+
+        if ($this->request->is('post')) {
+
+            $usersTable = $this->fetchTable('Users');
+
+            $username = $this->request->getData('username');
+            $password = $this->request->getData('password');
+
+            $user = $usersTable->find()
+                ->where([
+                    'username' => $username,
+                    'password' => $password 
+                ])
+                ->first();
+
+            if ($user) {
+                // lưu session
+                $this->request->getSession()->write('Auth', $user);
+
+                return $this->redirect([
+                    'controller' => 'Pages',
+                    'action' => 'display',
+                    'home'
+                ]);
+            } else {
+                $this->Flash->set('Tên người dùng hoặc mật khẩu không đúng', [
+                    'key' => 'loginError'
+                ]);
+            }
+        }
+    }
+
+    public function logout()
+    {
+        $this->request->getSession()->delete('Auth');
+
+        return $this->redirect([
+            'controller' => 'Users',
+            'action' => 'login'
+        ]);
+    }
 }
