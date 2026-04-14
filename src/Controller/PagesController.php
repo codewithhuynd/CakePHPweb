@@ -48,9 +48,21 @@ class PagesController extends AppController
         if (!$path) {
             return $this->redirect('/');
         }
+
         if (in_array('..', $path, true) || in_array('.', $path, true)) {
             throw new ForbiddenException();
         }
+
+        if (!empty($path) && $path[0] === 'home') {
+            $booksTable = $this->fetchTable('Books');
+            $categoriesTable = $this->fetchTable('Categories');
+
+            $books = $booksTable->find()->contain(['Categories']);
+            $categories = $categoriesTable->find();
+
+            $this->set(compact('books', 'categories'));
+        }
+
         $page = $subpage = null;
 
         if (!empty($path[0])) {
@@ -59,6 +71,7 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
+
         $this->set(compact('page', 'subpage'));
 
         try {

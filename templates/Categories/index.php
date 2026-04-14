@@ -49,19 +49,25 @@
                         <td><?= h($category->created) ?></td>
                         <td><?= h($category->modified) ?></td>
                         <td>
-                            <?= $this->Html->link('👁', ['action' => 'view', $category->id], [
-                                'class' => 'btn btn-sm btn-info'
-                            ]) ?>
+                            <?= $this->Html->link(
+                                '<i class="fas fa-eye"></i>',
+                                ['action' => 'view', $category->id],
+                                ['class' => 'btn btn-sm btn-outline-info me-1', 'escape' => false]
+                            ) ?>
 
-                            <?= $this->Html->link('✏️', ['action' => 'edit', $category->id], [
-                                'class' => 'btn btn-sm btn-warning'
-                            ]) ?>
+                            <?= $this->Html->link(
+                                '<i class="fas fa-edit"></i>',
+                                ['action' => 'edit', $category->id],
+                                ['class' => 'btn btn-sm btn-outline-warning me-1', 'escape' => false]
+                            ) ?>
 
-                            <?= $this->Form->postLink('🗑',
+                            <?= $this->Form->postLink(
+                                '<i class="fas fa-trash"></i>',
                                 ['action' => 'delete', $category->id],
                                 [
-                                    'confirm' => 'Xóa danh mục này?',
-                                    'class' => 'btn btn-sm btn-danger'
+                                    'class' => 'btn btn-sm btn-outline-danger',
+                                    'escape' => false,
+                                    'confirm' => 'Xóa danh mục này?'
                                 ]
                             ) ?>
                         </td>
