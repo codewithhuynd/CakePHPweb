@@ -59,7 +59,6 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid px-4">
-        <!-- Dùng $this->Html->link() thay vì <a href> -->
         <?= $this->Html->link(
             '<i class="fas fa-book-open me-2"></i>Thư Viện Sách',
             ['controller' => 'Pages', 'action' => 'display', 'home'],

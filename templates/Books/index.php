@@ -11,7 +11,6 @@
     ) ?>
 </div>
 
-<!-- Bộ lọc tìm kiếm -->
 <div class="card mb-4">
     <div class="card-body">
         <form method="GET"
@@ -49,7 +48,6 @@
     </div>
 </div>
 
-<!-- Bảng danh sách -->
 <div class="card">
     <div class="card-body p-0">
         <div class="table-responsive">
@@ -95,21 +93,18 @@
                                 <?php endif; ?>
                             </td>
                             <td class="text-center">
-                                <!-- Xem chi tiết -->
                                 <?= $this->Html->link(
                                     '<i class="fas fa-eye"></i>',
                                     ['action' => 'view', $book->id],
                                     ['class' => 'btn btn-sm btn-outline-info me-1',
                                      'escape' => false, 'title' => 'Xem']
                                 ) ?>
-                                <!-- Sửa -->
                                 <?= $this->Html->link(
                                     '<i class="fas fa-edit"></i>',
                                     ['action' => 'edit', $book->id],
                                     ['class' => 'btn btn-sm btn-outline-warning me-1',
                                      'escape' => false, 'title' => 'Sửa']
                                 ) ?>
-                                <!-- Xóa -->
                                 <?= $this->Form->postLink(
                                     '<i class="fas fa-trash"></i>',
                                     ['action' => 'delete', $book->id],

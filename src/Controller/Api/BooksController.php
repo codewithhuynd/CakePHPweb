@@ -8,13 +8,10 @@ use Cake\Http\Response;
 
 class BooksController extends AppController
 {
-    // KHÔNG cần initialize() nữa
-    // CakePHP 5.x tự xử lý JSON qua Content-Type
 
     public function initialize(): void
     {
         parent::initialize();
-        // Fix tiếng Việt không bị mã hóa unicode
         $this->response = $this->response
             ->withCharset('UTF-8');
     }

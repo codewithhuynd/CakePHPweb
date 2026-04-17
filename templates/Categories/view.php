@@ -13,6 +13,7 @@
             <?= $this->Html->link(__('List Categories'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
             <?= $this->Html->link(__('New Category'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
         </div>
+<<<<<<< Updated upstream
     </aside>
     <div class="column column-80">
         <div class="categories view content">
@@ -34,6 +35,58 @@
                     <th><?= __('Modified') ?></th>
                     <td><?= h($category->modified) ?></td>
                 </tr>
+=======
+
+        <div class="actions">
+            <?= $this->Html->link('Sửa', ['action' => 'edit', $category->id], ['class' => 'btn btn-warning']) ?>
+
+            <?= $this->Form->postLink(
+                'Xóa',
+                ['action' => 'delete', $category->id],
+                [
+                    'confirm' => 'Bạn chắc chắn muốn xóa?',
+                    'class' => 'btn btn-danger'
+                ]
+            ) ?>
+
+            <?= $this->Html->link('Quay lại', ['action' => 'index'], ['class' => 'btn btn-secondary']) ?>
+        </div>
+    </div>
+
+    <div class="card mt-20">
+        <h3>Sách thuộc danh mục</h3>
+
+        <?php if (!empty($category->books)) : ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên sách</th>
+                        <th>Tác giả</th>
+                        <th>Số lượng</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($category->books as $book) : ?>
+                    <tr>
+                        <td><?= $book->id ?></td>
+                        <td><?= h($book->title) ?></td>
+                        <td><?= h($book->author) ?></td>
+                        <td><?= $book->quantity ?></td>
+                        <td>
+                            <span class="badge <?= $book->status === 'available' ? 'badge-success' : 'badge-danger' ?>">
+                                <?= $book->status === 'available' ? 'Có sẵn' : 'Hết' ?>
+                            </span>
+                        </td>
+                        <td>
+                            <?= $this->Html->link('View', ['controller' => 'Books', 'action' => 'view', $book->id], ['class' => 'btn btn-sm']) ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+>>>>>>> Stashed changes
             </table>
             <div class="text">
                 <strong><?= __('Description') ?></strong>

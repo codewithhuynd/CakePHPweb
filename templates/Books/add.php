@@ -31,5 +31,57 @@
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
         </div>
+<<<<<<< Updated upstream
+=======
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <?= $this->Form->control('category_id', [
+                    'label' => 'Danh mục',
+                    'options' => $categories,
+                    'class' => 'form-select'
+                ]) ?>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <?= $this->Form->control('quantity', [
+                    'label' => 'Số lượng',
+                    'class' => 'form-control'
+                ]) ?>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <?= $this->Form->control('status', [
+                    'label' => 'Trạng thái',
+                    'options' => [
+                        'available' => 'Có sẵn',
+                        'unavailable' => 'Hết'
+                    ],
+                    'class' => 'form-select'
+                ]) ?>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <?= $this->Form->control('user_id', [
+                'label' => 'Người thêm (tuỳ chọn)',
+                'options' => $users,
+                'empty' => '--- Không chọn ---',
+                'class' => 'form-select'
+            ]) ?>
+        </div>
+
+        <div class="text-center mt-4">
+            <?= $this->Form->button('Lưu sách', [
+                'class' => 'btn btn-primary px-4'
+            ]) ?>
+
+            <?= $this->Html->link('Quay lại', ['action' => 'index'], [
+                'class' => 'btn btn-secondary ms-2'
+            ]) ?>
+        </div>
+
+        <?= $this->Form->end() ?>
+>>>>>>> Stashed changes
     </div>
 </div>

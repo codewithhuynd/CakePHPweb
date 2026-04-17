@@ -10,7 +10,11 @@ class CategoriesController extends AppController
     public function initialize(): void
     {
         parent::initialize();
+<<<<<<< Updated upstream
         // Fix tiếng Việt không bị mã hóa unicode
+=======
+        
+>>>>>>> Stashed changes
         $this->response = $this->response
             ->withCharset('UTF-8');
     }

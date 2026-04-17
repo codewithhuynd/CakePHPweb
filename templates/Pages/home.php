@@ -75,6 +75,7 @@ endif;
     <?= $this->fetch('script') ?>
 </head>
 <body>
+<<<<<<< Updated upstream
     <header>
         <div class="container text-center">
             <a href="https://cakephp.org/" target="_blank" rel="noopener">
@@ -83,6 +84,39 @@ endif;
             <h1>
                 Welcome to CakePHP <?= h(Configure::version()) ?> Chiffon (🍰)
             </h1>
+=======
+
+<div class="container mt-4">
+
+    <div class="text-center mb-4">
+        <h1 class="fw-bold">SÁCH VÀ DANH MỤC HIỆN CÓ</h1>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-8">
+            <h3>Danh sách sách</h3>
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên sách</th>
+                        <th>Tác giả</th>
+                        <th>Danh mục</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($books as $book): ?>
+                    <tr>
+                        <td><?= $book->id ?></td>
+                        <td><?= h($book->title) ?></td>
+                        <td><?= h($book->author) ?></td>
+                        <td><?= h($book->category->name ?? 'Không có') ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+>>>>>>> Stashed changes
         </div>
     </header>
     <main class="main">
@@ -115,6 +149,7 @@ endif;
                             <li class="bullet problem">Your version of PHP is too low. You need PHP 8.1.0 or higher to use CakePHP (detected <?= PHP_VERSION ?>).</li>
                         <?php endif; ?>
 
+<<<<<<< Updated upstream
                         <?php if (extension_loaded('mbstring')) : ?>
                             <li class="bullet success">Your version of PHP has the mbstring extension loaded.</li>
                         <?php else : ?>
@@ -235,6 +270,26 @@ endif;
                     </div>
                 </div>
             </div>
+=======
+        <div class="col-md-4">
+            <h3>Danh mục</h3>
+            <table class="table table-bordered table-hover">
+                <thead class="table-primary">
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên danh mục</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($categories as $category): ?>
+                    <tr>
+                        <td><?= $category->id ?></td>
+                        <td><?= h($category->name) ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+>>>>>>> Stashed changes
         </div>
     </main>
 </body>

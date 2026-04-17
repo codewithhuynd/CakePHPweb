@@ -18,6 +18,14 @@ class CategoriesController extends AppController
     public function index()
     {
         $query = $this->Categories->find();
+
+        $keyword = $this->request->getQuery('keyword');
+        if (!empty($keyword)) {
+            $query = $query->where([
+                'Categories.name LIKE' => '%' . $keyword . '%'
+            ]);
+        }
+
         $categories = $this->paginate($query);
 
         $this->set(compact('categories'));
