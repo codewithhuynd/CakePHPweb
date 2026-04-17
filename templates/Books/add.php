@@ -1,38 +1,40 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Book $book
- * @var \Cake\Collection\CollectionInterface|string[] $categories
- * @var \Cake\Collection\CollectionInterface|string[] $users
- */
-?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Books'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+<div class="container mt-4">
+    <div class="card shadow-lg p-4 rounded-4">
+        <h2 class="mb-4 text-center">Thêm Sách Mới</h2>
+
+        <?= $this->Form->create($book) ?>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <?= $this->Form->control('title', [
+                    'label' => 'Tên sách',
+                    'class' => 'form-control',
+                    'placeholder' => 'Nhập tên sách...'
+                ]) ?>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <?= $this->Form->control('author', [
+                    'label' => 'Tác giả',
+                    'class' => 'form-control',
+                    'placeholder' => 'Nhập tên tác giả...'
+                ]) ?>
+            </div>
         </div>
-    </aside>
-    <div class="column column-80">
-        <div class="books form content">
-            <?= $this->Form->create($book) ?>
-            <fieldset>
-                <legend><?= __('Add Book') ?></legend>
-                <?php
-                    echo $this->Form->control('category_id', ['options' => $categories]);
-                    echo $this->Form->control('user_id', ['options' => $users, 'empty' => true]);
-                    echo $this->Form->control('title');
-                    echo $this->Form->control('author');
-                    echo $this->Form->control('description');
-                    echo $this->Form->control('quantity');
-                    echo $this->Form->control('status');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+
+        <div class="mb-3">
+            <?= $this->Form->control('description', [
+                'label' => 'Mô tả',
+                'class' => 'form-control',
+                'rows' => 3,
+                'placeholder' => 'Mô tả sách...'
+            ]) ?>
         </div>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> main
 
         <div class="row">
             <div class="col-md-4 mb-3">
@@ -72,16 +74,27 @@
         </div>
 
         <div class="text-center mt-4">
+<<<<<<< HEAD
             <?= $this->Form->button('Lưu sách', [
                 'class' => 'btn btn-primary px-4'
             ]) ?>
 
             <?= $this->Html->link('Quay lại', ['action' => 'index'], [
+=======
+            <?= $this->Form->button('💾 Lưu sách', [
+                'class' => 'btn btn-primary px-4'
+            ]) ?>
+
+            <?= $this->Html->link('⬅ Quay lại', ['action' => 'index'], [
+>>>>>>> main
                 'class' => 'btn btn-secondary ms-2'
             ]) ?>
         </div>
 
         <?= $this->Form->end() ?>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
     </div>
 </div>

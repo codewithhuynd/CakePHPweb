@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <?php
 /**
@@ -87,6 +88,42 @@
 
     <div class="card shadow-sm p-4 rounded-4 mb-4">
         <h4 class="mb-3">Thông tin mượn</h4>
+=======
+<div class="container mt-4">
+
+    <!-- Header -->
+    <div class="card shadow-lg p-4 rounded-4 mb-4 text-center">
+        <h2 class="mb-2">📦 Phiếu mượn #<?= $this->Number->format($borrow->id) ?></h2>
+
+        <?php
+            $statusClass = 'bg-secondary';
+            if ($borrow->status == 'borrowed') $statusClass = 'bg-warning text-dark';
+            if ($borrow->status == 'returned') $statusClass = 'bg-success';
+            if ($borrow->status == 'late') $statusClass = 'bg-danger';
+        ?>
+
+        <span class="badge <?= $statusClass ?> px-3 py-2 mb-3">
+            <?= h($borrow->status) ?>
+        </span>
+
+        <div>
+            <?= $this->Html->link('✏ Edit', ['action' => 'edit', $borrow->id], ['class' => 'btn btn-warning btn-sm']) ?>
+            <?= $this->Form->postLink(
+                '🗑 Delete',
+                ['action' => 'delete', $borrow->id],
+                [
+                    'class' => 'btn btn-danger btn-sm',
+                    'confirm' => __('Bạn chắc chắn muốn xóa #{0}?', $borrow->id)
+                ]
+            ) ?>
+            <?= $this->Html->link('⬅ Back', ['action' => 'index'], ['class' => 'btn btn-secondary btn-sm']) ?>
+        </div>
+    </div>
+
+    <!-- Thông tin chính -->
+    <div class="card shadow-sm p-4 rounded-4 mb-4">
+        <h4 class="mb-3">📄 Thông tin mượn</h4>
+>>>>>>> main
 
         <table class="table">
             <tr>
@@ -119,8 +156,14 @@
         </table>
     </div>
 
+<<<<<<< HEAD
     <div class="card shadow-sm p-4 rounded-4">
         <h4 class="mb-3">Thông tin hệ thống</h4>
+=======
+    <!-- Thông tin hệ thống -->
+    <div class="card shadow-sm p-4 rounded-4">
+        <h4 class="mb-3">⚙️ Thông tin hệ thống</h4>
+>>>>>>> main
 
         <table class="table">
             <tr>
@@ -140,5 +183,8 @@
         </table>
     </div>
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
 </div>

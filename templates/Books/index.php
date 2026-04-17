@@ -5,7 +5,7 @@
         <i class="fas fa-book me-2"></i>Danh sách Sách
     </h2>
     <?= $this->Html->link(
-        '<i class="fas fa-plus me-2"></i>Thêm sách mới',
+        'Thêm sách mới',
         ['action' => 'add'],
         ['class' => 'btn btn-primary', 'escape' => false]
     ) ?>
@@ -54,7 +54,7 @@
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th><?= $this->Paginator->sort('id', 'ID') ?></th>
                         <th>Tên sách</th>
                         <th>Tác giả</th>
                         <th>Danh mục</th>

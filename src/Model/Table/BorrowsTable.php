@@ -81,11 +81,25 @@ class BorrowsTable extends Table
 
         $validator
             ->date('return_date')
-            ->allowEmptyDate('return_date');
+            ->allowEmptyDate('return_date')
+            ->add('return_date', 'custom', [
+                'rule' => function ($value, $context) {
+                    $borrowDate = $context['data']['borrow_date'] ?? null;
+
+                    if (!$value || !$borrowDate) {
+                        return true; 
+                    }
+
+                    return strtotime($value) > strtotime($borrowDate);
+                },
+                'message' => 'Ngày trả phải sau ngày mượn'
+            ]);
 
         $validator
             ->scalar('status')
             ->allowEmptyString('status');
+
+        
 
         return $validator;
     }

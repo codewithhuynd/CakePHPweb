@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <?php
 /**
@@ -17,6 +18,12 @@
 
     <div class="card shadow-lg p-4 rounded-4">
         <h2 class="text-center mb-4">Tạo phiếu mượn</h2>
+=======
+<div class="container mt-4">
+
+    <div class="card shadow-lg p-4 rounded-4">
+        <h2 class="text-center mb-4">📦 Tạo phiếu mượn</h2>
+>>>>>>> main
 
         <?= $this->Form->create($borrow) ?>
 
@@ -27,27 +34,25 @@
                 'options' => $users,
                 'empty' => 'Chọn người dùng...'
             ]) ?>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
         </div>
-    </aside>
-    <div class="column column-80">
-        <div class="borrows form content">
-            <?= $this->Form->create($borrow) ?>
-            <fieldset>
-                <legend><?= __('Add Borrow') ?></legend>
-                <?php
-                    echo $this->Form->control('user_id', ['options' => $users]);
-                    echo $this->Form->control('book_id', ['options' => $books]);
-                    echo $this->Form->control('borrow_date');
-                    echo $this->Form->control('return_date', ['empty' => true]);
-                    echo $this->Form->control('status');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+
+        <div class="mb-3">
+            <?= $this->Form->control('book_id', [
+                'label' => 'Sách',
+                'class' => 'form-select',
+                'options' => $books,
+                'empty' => 'Chọn sách...'
+            ]) ?>
         </div>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> main
 
         <div class="mb-3">
             <?= $this->Form->control('borrow_date', [
@@ -71,7 +76,11 @@
                 'label' => 'Trạng thái',
                 'class' => 'form-select',
                 'options' => [
+<<<<<<< HEAD
                     'borrowing' => '📖 Đang mượn',
+=======
+                    'borrowed' => '📖 Đang mượn',
+>>>>>>> main
                     'returned' => '✅ Đã trả',
                     'late' => '⚠️ Quá hạn'
                 ]
@@ -79,16 +88,28 @@
         </div>
 
         <div class="text-center mt-4">
+<<<<<<< HEAD
             <?= $this->Form->button('Lưu', [
                 'class' => 'btn btn-primary px-4'
             ]) ?>
 
             <?= $this->Html->link('Quay lại', ['action' => 'index'], [
+=======
+            <?= $this->Form->button('💾 Lưu', [
+                'class' => 'btn btn-primary px-4'
+            ]) ?>
+
+            <?= $this->Html->link('⬅ Quay lại', ['action' => 'index'], [
+>>>>>>> main
                 'class' => 'btn btn-secondary ms-2'
             ]) ?>
         </div>
 
         <?= $this->Form->end() ?>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
     </div>
+
 </div>

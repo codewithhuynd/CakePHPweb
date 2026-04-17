@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <?php
 /**
@@ -62,6 +63,14 @@
         <h3 class="fw-bold">Quản lý mượn sách</h3>
         <?= $this->Html->link('Đăng ký mượn sách', ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
     </div>
+=======
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold">📦 Quản lý mượn sách</h3>
+        <?= $this->Html->link('Đăng ký mượn sách', ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
+    </div>
+>>>>>>> main
 
     <div class="card shadow-lg rounded-4">
         <div class="card-body p-0">
@@ -145,16 +154,27 @@
         </div>
     </div>
 
+<<<<<<< HEAD
     <!-- Đánh số trang -->
+=======
+    <!-- Pagination -->
+>>>>>>> main
     <div class="d-flex justify-content-between align-items-center mt-3">
         <ul class="pagination mb-0">
             <?= $this->Paginator->first('<<') ?>
             <?= $this->Paginator->prev('<') ?>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next('>') ?>
+            <?= $this->Paginator->last('>>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+
+        <small class="text-muted">
+            <?= $this->Paginator->counter('Trang {{page}} / {{pages}} ({{count}} bản ghi)') ?>
+        </small>
     </div>
+
 </div>

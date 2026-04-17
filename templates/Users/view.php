@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <?php
 /**
@@ -46,6 +47,11 @@
 =======
 <div class="container mt-4">
 
+=======
+<div class="container mt-4">
+
+    <!-- Header -->
+>>>>>>> main
     <div class="card shadow-lg p-4 rounded-4 mb-4 text-center">
         <h2 class="mb-1">👤 <?= h($user->username) ?></h2>
         <p class="text-muted"><?= h($user->email) ?></p>
@@ -54,15 +60,22 @@
         </span>
 
         <div class="mt-3">
+<<<<<<< HEAD
             <?= $this->Html->link('Sửa', ['action' => 'edit', $user->id], ['class' => 'btn btn-warning btn-sm']) ?>
             <?= $this->Form->postLink(
                 'Xóa',
+=======
+            <?= $this->Html->link('✏ Edit', ['action' => 'edit', $user->id], ['class' => 'btn btn-warning btn-sm']) ?>
+            <?= $this->Form->postLink(
+                '🗑 Delete',
+>>>>>>> main
                 ['action' => 'delete', $user->id],
                 [
                     'class' => 'btn btn-danger btn-sm',
                     'confirm' => __('Are you sure you want to delete # {0}?', $user->id)
                 ]
             ) ?>
+<<<<<<< HEAD
             <?= $this->Html->link('Quay lại', ['action' => 'index'], ['class' => 'btn btn-secondary btn-sm']) ?>
         </div>
     </div>
@@ -217,6 +230,77 @@
 
     <div class="card shadow-sm p-4 rounded-4">
         <h4 class="mb-3">Lịch sử mượn</h4>
+=======
+            <?= $this->Html->link('⬅ Back', ['action' => 'index'], ['class' => 'btn btn-secondary btn-sm']) ?>
+        </div>
+    </div>
+
+    <!-- Info -->
+    <div class="card shadow-sm p-4 rounded-4 mb-4">
+        <h4 class="mb-3">📄 Thông tin chi tiết</h4>
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <td><?= $this->Number->format($user->id) ?></td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td><?= h($user->created) ?></td>
+            </tr>
+            <tr>
+                <th>Modified</th>
+                <td><?= h($user->modified) ?></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Books -->
+    <div class="card shadow-sm p-4 rounded-4 mb-4">
+        <h4 class="mb-3">📚 Sách đã thêm</h4>
+
+        <?php if (!empty($user->books)) : ?>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($user->books as $book) : ?>
+                    <tr>
+                        <td><?= h($book->id) ?></td>
+                        <td><?= h($book->title) ?></td>
+                        <td><?= h($book->author) ?></td>
+                        <td><?= h($book->quantity) ?></td>
+                        <td>
+                            <span class="badge bg-success">
+                                <?= h($book->status) ?>
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <?= $this->Html->link('View', ['controller' => 'Books', 'action' => 'view', $book->id], ['class' => 'btn btn-sm btn-outline-primary']) ?>
+                            <?= $this->Html->link('Edit', ['controller' => 'Books', 'action' => 'edit', $book->id], ['class' => 'btn btn-sm btn-outline-warning']) ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php else : ?>
+            <p class="text-muted">Chưa có sách nào.</p>
+        <?php endif; ?>
+    </div>
+
+    <!-- Borrows -->
+    <div class="card shadow-sm p-4 rounded-4">
+        <h4 class="mb-3">📦 Lịch sử mượn</h4>
+>>>>>>> main
 
         <?php if (!empty($user->borrows)) : ?>
         <div class="table-responsive">
@@ -257,5 +341,8 @@
         <?php endif; ?>
     </div>
 
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
 </div>

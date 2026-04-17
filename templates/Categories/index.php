@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <?php
 /**
@@ -58,6 +59,20 @@
         ]) ?>
     </div>
 
+=======
+<div class="container mt-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2> Quản Lý Danh Mục</h2>
+
+        <?= $this->Html->link(' Thêm danh mục', ['action' => 'add'], [
+            'class' => 'btn btn-primary'
+        ]) ?>
+    </div>
+
+    <!-- Search -->
+>>>>>>> main
     <div class="card shadow-sm p-3 mb-3 rounded-4">
         <?= $this->Form->create(null, ['type' => 'get']) ?>
         <div class="row">
@@ -65,8 +80,12 @@
                 <?= $this->Form->control('keyword', [
                     'label' => false,
                     'placeholder' => 'Tìm tên danh mục...',
+<<<<<<< HEAD
                     'class' => 'form-control',
                     'value' => $this->request->getQuery('keyword')
+=======
+                    'class' => 'form-control'
+>>>>>>> main
                 ]) ?>
             </div>
             <div class="col-md-2">
@@ -76,6 +95,10 @@
         <?= $this->Form->end() ?>
     </div>
 
+<<<<<<< HEAD
+=======
+    <!-- Table -->
+>>>>>>> main
     <div class="card shadow rounded-4">
         <div class="table-responsive">
             <table class="table table-hover align-middle text-center mb-0">
@@ -126,15 +149,26 @@
         </div>
     </div>
 
+<<<<<<< HEAD
+=======
+    <!-- Pagination -->
+>>>>>>> main
     <div class="mt-3 d-flex justify-content-between align-items-center">
         <div>
             <?= $this->Paginator->first('<<') ?>
             <?= $this->Paginator->prev('<') ?>
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+            <?= $this->Paginator->next('>') ?>
+            <?= $this->Paginator->last('>>') ?>
+        </div>
+
+        <div class="text-muted">
+            <?= $this->Paginator->counter('Trang {{page}} / {{pages}} ({{count}} bản ghi)') ?>
+        </div>
     </div>
+
 </div>
