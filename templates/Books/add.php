@@ -7,16 +7,16 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <?= $this->Form->control('title', [
-                    'label' => 'Tên sách',
-                    'class' => 'form-control',
+                    'label'       => 'Tên sách',
+                    'class'       => 'form-control',
                     'placeholder' => 'Nhập tên sách...'
                 ]) ?>
             </div>
 
             <div class="col-md-6 mb-3">
                 <?= $this->Form->control('author', [
-                    'label' => 'Tác giả',
-                    'class' => 'form-control',
+                    'label'       => 'Tác giả',
+                    'class'       => 'form-control',
                     'placeholder' => 'Nhập tên tác giả...'
                 ]) ?>
             </div>
@@ -24,24 +24,19 @@
 
         <div class="mb-3">
             <?= $this->Form->control('description', [
-                'label' => 'Mô tả',
-                'class' => 'form-control',
-                'rows' => 3,
+                'label'       => 'Mô tả',
+                'class'       => 'form-control',
+                'rows'        => 3,
                 'placeholder' => 'Mô tả sách...'
             ]) ?>
         </div>
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> main
 
         <div class="row">
             <div class="col-md-4 mb-3">
                 <?= $this->Form->control('category_id', [
-                    'label' => 'Danh mục',
+                    'label'   => 'Danh mục',
                     'options' => $categories,
-                    'class' => 'form-select'
+                    'class'   => 'form-select'
                 ]) ?>
             </div>
 
@@ -54,9 +49,9 @@
 
             <div class="col-md-4 mb-3">
                 <?= $this->Form->control('status', [
-                    'label' => 'Trạng thái',
+                    'label'   => 'Trạng thái',
                     'options' => [
-                        'available' => 'Có sẵn',
+                        'available'   => 'Có sẵn',
                         'unavailable' => 'Hết'
                     ],
                     'class' => 'form-select'
@@ -66,35 +61,23 @@
 
         <div class="mb-3">
             <?= $this->Form->control('user_id', [
-                'label' => 'Người thêm (tuỳ chọn)',
+                'label'   => 'Người thêm (tuỳ chọn)',
                 'options' => $users,
-                'empty' => '--- Không chọn ---',
-                'class' => 'form-select'
+                'empty'   => '--- Không chọn ---',
+                'class'   => 'form-select'
             ]) ?>
         </div>
 
         <div class="text-center mt-4">
-<<<<<<< HEAD
             <?= $this->Form->button('Lưu sách', [
                 'class' => 'btn btn-primary px-4'
             ]) ?>
 
             <?= $this->Html->link('Quay lại', ['action' => 'index'], [
-=======
-            <?= $this->Form->button('💾 Lưu sách', [
-                'class' => 'btn btn-primary px-4'
-            ]) ?>
-
-            <?= $this->Html->link('⬅ Quay lại', ['action' => 'index'], [
->>>>>>> main
                 'class' => 'btn btn-secondary ms-2'
             ]) ?>
         </div>
 
         <?= $this->Form->end() ?>
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> main
     </div>
 </div>

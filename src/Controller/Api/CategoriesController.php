@@ -7,25 +7,6 @@ use App\Controller\AppController;
 
 class CategoriesController extends AppController
 {
-    protected $loadModel = ['Categories'];
-
-    public function initialize(): void
-    {
-        
-        parent::initialize();
-<<<<<<< Updated upstream
-        // Fix tiếng Việt không bị mã hóa unicode
-<<<<<<< HEAD
-=======
-        
->>>>>>> Stashed changes
-=======
-        
->>>>>>> main
-        $this->response = $this->response
-            ->withCharset('UTF-8');
-    }
-
     public function index(): void
     {
         $categories = $this->Categories->find('all')->all();

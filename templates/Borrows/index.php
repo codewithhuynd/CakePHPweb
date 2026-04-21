@@ -1,76 +1,9 @@
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-<?php
-/**
- * @var \App\View\AppView $this
- * @var iterable<\App\Model\Entity\Borrow> $borrows
- */
-?>
-<div class="borrows index content">
-    <?= $this->Html->link(__('New Borrow'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Borrows') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('user_id') ?></th>
-                    <th><?= $this->Paginator->sort('book_id') ?></th>
-                    <th><?= $this->Paginator->sort('borrow_date') ?></th>
-                    <th><?= $this->Paginator->sort('return_date') ?></th>
-                    <th><?= $this->Paginator->sort('status') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($borrows as $borrow): ?>
-                <tr>
-                    <td><?= $this->Number->format($borrow->id) ?></td>
-                    <td><?= $borrow->hasValue('user') ? $this->Html->link($borrow->user->username, ['controller' => 'Users', 'action' => 'view', $borrow->user->id]) : '' ?></td>
-                    <td><?= $borrow->hasValue('book') ? $this->Html->link($borrow->book->title, ['controller' => 'Books', 'action' => 'view', $borrow->book->id]) : '' ?></td>
-                    <td><?= h($borrow->borrow_date) ?></td>
-                    <td><?= h($borrow->return_date) ?></td>
-                    <td><?= h($borrow->status) ?></td>
-                    <td><?= h($borrow->created) ?></td>
-                    <td><?= h($borrow->modified) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $borrow->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $borrow->id]) ?>
-                        <?= $this->Form->postLink(
-                            __('Delete'),
-                            ['action' => 'delete', $borrow->id],
-                            [
-                                'method' => 'delete',
-                                'confirm' => __('Are you sure you want to delete # {0}?', $borrow->id),
-                            ]
-                        ) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-=======
 <div class="container mt-4">
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="fw-bold">Quản lý mượn sách</h3>
         <?= $this->Html->link('Đăng ký mượn sách', ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
     </div>
-=======
-<div class="container mt-4">
-
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold">📦 Quản lý mượn sách</h3>
-        <?= $this->Html->link('Đăng ký mượn sách', ['action' => 'add'], ['class' => 'btn btn-primary']) ?>
-    </div>
->>>>>>> main
 
     <div class="card shadow-lg rounded-4">
         <div class="card-body p-0">
@@ -154,19 +87,11 @@
         </div>
     </div>
 
-<<<<<<< HEAD
     <!-- Đánh số trang -->
-=======
-    <!-- Pagination -->
->>>>>>> main
     <div class="d-flex justify-content-between align-items-center mt-3">
         <ul class="pagination mb-0">
             <?= $this->Paginator->first('<<') ?>
             <?= $this->Paginator->prev('<') ?>
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> main
             <?= $this->Paginator->numbers() ?>
             <?= $this->Paginator->next('>') ?>
             <?= $this->Paginator->last('>>') ?>
