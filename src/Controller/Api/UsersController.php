@@ -3,100 +3,126 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Controller\AppController;
-
 /**
- * Users Controller
+ * Users API Controller
+ *
+ * RESTful resource controller for Users.
+ *
+ * | HTTP Method | URL                | Action  |
+ * |-------------|--------------------|---------|
+ * | GET         | /api/users         | index   |
+ * | GET         | /api/users/:id     | view    |
+ * | POST        | /api/users         | add     |
+ * | PUT/PATCH   | /api/users/:id     | edit    |
+ * | DELETE      | /api/users/:id     | delete  |
  *
  * @property \App\Model\Table\UsersTable $Users
  */
-class UsersController extends AppController
+class UsersController extends ApiAppController
 {
     /**
-     * Index method
+     * GET /api/users
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * List all users with pagination metadata.
+     *
+     * @return void
      */
-    public function index()
+    public function index(): void
     {
+        $this->request->allowMethod(['get']);
+
         $query = $this->Users->find();
         $users = $this->paginate($query);
+        $pagination = $this->getPaginationMeta();
 
-        $this->set(compact('users'));
+        $this->jsonResponse(200, true, 'Users retrieved successfully.', $users, null, $pagination);
     }
 
     /**
-     * View method
+     * GET /api/users/:id
      *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * Retrieve a single user by their ID, including
+     * associated Books and Borrows.
+     *
+     * @param string $id User ID.
+     * @return void
      */
-    public function view($id = null)
+    public function view(string $id): void
     {
+        $this->request->allowMethod(['get']);
+
         $user = $this->Users->get($id, contain: ['Books', 'Borrows']);
-        $this->set(compact('user'));
+
+        $this->jsonResponse(200, true, 'User retrieved successfully.', $user);
     }
 
     /**
-     * Add method
+     * POST /api/users
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * Create a new user. Expects JSON body with user fields.
+     *
+     * @return void
      */
-    public function add()
+    public function add(): void
     {
+        $this->request->allowMethod(['post']);
+
         $user = $this->Users->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+        $user = $this->Users->patchEntity($user, $this->request->getData());
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        if ($this->Users->save($user)) {
+            $this->jsonResponse(201, true, 'User created successfully.', $user);
+
+            return;
         }
-        $this->set(compact('user'));
+
+        $this->jsonResponse(422, false, 'Validation failed. User could not be created.', null, $user->getErrors());
     }
 
     /**
-     * Edit method
+     * PUT|PATCH /api/users/:id
      *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $user = $this->Users->get($id, contain: []);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        }
-        $this->set(compact('user'));
-    }
-
-    /**
-     * Delete method
+     * Update an existing user. Expects JSON body with fields to update.
      *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @param string $id User ID.
+     * @return void
      */
-    public function delete($id = null)
+    public function edit(string $id): void
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['put', 'patch']);
+
         $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
-        } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+        $user = $this->Users->patchEntity($user, $this->request->getData());
+
+        if ($this->Users->save($user)) {
+            $this->jsonResponse(200, true, 'User updated successfully.', $user);
+
+            return;
         }
 
-        return $this->redirect(['action' => 'index']);
+        $this->jsonResponse(422, false, 'Validation failed. User could not be updated.', null, $user->getErrors());
+    }
+
+    /**
+     * DELETE /api/users/:id
+     *
+     * Delete a user by their ID.
+     *
+     * @param string $id User ID.
+     * @return void
+     */
+    public function delete(string $id): void
+    {
+        $this->request->allowMethod(['delete']);
+
+        $user = $this->Users->get($id);
+
+        if ($this->Users->delete($user)) {
+            $this->jsonResponse(200, true, 'User deleted successfully.');
+
+            return;
+        }
+
+        $this->jsonResponse(500, false, 'User could not be deleted. Please try again.');
     }
 }

@@ -49,11 +49,28 @@ return function (RouteBuilder $routes): void {
      */
     $routes->setRouteClass(DashedRoute::class);
 
-    // API Routes
+    // API Routes — RESTful resource endpoints
+    // All routes under /api automatically support .json and .xml extensions.
     $routes->prefix('api', function (RouteBuilder $builder): void {
-        $builder->setExtensions(['json']);
+        $builder->setExtensions(['json', 'xml']);
+
+        // /api/books        → BooksController::index (GET), ::add (POST)
+        // /api/books/:id    → BooksController::view (GET), ::edit (PUT/PATCH), ::delete (DELETE)
         $builder->resources('Books');
-        $builder->resources('Categories');
+
+        // /api/categories   → CategoriesController::index, ::add, etc.
+        // /api/categories/:id/books → nested sub-resource (demonstrates RESTful relationships)
+        $builder->resources('Categories', [
+            'map' => [
+                'books' => [
+                    'action' => 'books',
+                    'method' => 'GET',
+                    'path' => ':id/books',
+                ],
+            ],
+        ]);
+
+        // /api/users        → UsersController::index, ::add, etc.
         $builder->resources('Users');
     });
 

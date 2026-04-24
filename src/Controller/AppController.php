@@ -54,6 +54,14 @@ class AppController extends Controller
     {
         parent::beforeFilter($event);
 
+        // Skip session-based auth for API controllers.
+        // API prefix controllers handle their own authentication
+        // and return JSON 401 responses via ApiAppController.
+        $prefix = $this->request->getParam('prefix');
+        if ($prefix === 'Api') {
+            return null;
+        }
+
         $session = $this->request->getSession();
         $user = $session->read('Auth');
 

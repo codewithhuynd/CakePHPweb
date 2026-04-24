@@ -3,124 +3,150 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Controller\AppController;
-use Cake\Http\Response;
-
-class BooksController extends AppController
+/**
+ * Books API Controller
+ *
+ * RESTful resource controller for Books.
+ *
+ * | HTTP Method | URL                | Action  |
+ * |-------------|--------------------|---------|
+ * | GET         | /api/books         | index   |
+ * | GET         | /api/books/:id     | view    |
+ * | POST        | /api/books         | add     |
+ * | PUT/PATCH   | /api/books/:id     | edit    |
+ * | DELETE      | /api/books/:id     | delete  |
+ *
+ * @property \App\Model\Table\BooksTable $Books
+ */
+class BooksController extends ApiAppController
 {
-    // KHÔNG cần initialize() nữa
-    // CakePHP 5.x tự xử lý JSON qua Content-Type
-
-    public function initialize(): void
-    {
-        parent::initialize();
-        // Fix tiếng Việt không bị mã hóa unicode
-        $this->response = $this->response
-            ->withCharset('UTF-8');
-    }
-
+    /**
+     * GET /api/books
+     *
+     * List all books with optional search and category filters.
+     * Returns paginated results with pagination metadata.
+     *
+     * Query parameters:
+     *  - search   (string) — partial match on title or author
+     *  - category (int)    — filter by category_id
+     *
+     * @return void
+     */
     public function index(): void
     {
-        $books = $this->Books->find('all')
-            ->contain(['Categories'])
-            ->all();
+        $this->request->allowMethod(['get']);
 
-        $this->set([
-            'success' => true,
-            'data'    => $books,
-        ]);
-        $this->viewBuilder()
-             ->setClassName('Json')
-             ->setOption('serialize', ['success', 'data']);
+        $query = $this->Books->find()
+            ->contain(['Categories']);
+
+        // Filter: search by title or author
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $query = $query->where([
+                'OR' => [
+                    'Books.title LIKE'  => '%' . $search . '%',
+                    'Books.author LIKE' => '%' . $search . '%',
+                ],
+            ]);
+        }
+
+        // Filter: by category
+        $category = $this->request->getQuery('category');
+        if (!empty($category)) {
+            $query = $query->where(['Books.category_id' => $category]);
+        }
+
+        $books = $this->paginate($query);
+        $pagination = $this->getPaginationMeta();
+
+        $this->jsonResponse(200, true, 'Books retrieved successfully.', $books, null, $pagination);
     }
 
+    /**
+     * GET /api/books/:id
+     *
+     * Retrieve a single book by its ID, including related
+     * Category, Users, and Borrows data.
+     *
+     * @param string $id Book ID.
+     * @return void
+     */
     public function view(string $id): void
     {
-        $book = $this->Books->get($id, contain: ['Categories']);
+        $this->request->allowMethod(['get']);
 
-        $this->set([
-            'success' => true,
-            'data'    => $book,
-        ]);
-        $this->viewBuilder()
-             ->setClassName('Json')
-             ->setOption('serialize', ['success', 'data']);
+        $book = $this->Books->get($id, contain: ['Categories', 'Users', 'Borrows']);
+
+        $this->jsonResponse(200, true, 'Book retrieved successfully.', $book);
     }
 
+    /**
+     * POST /api/books
+     *
+     * Create a new book. Expects JSON body with book fields.
+     *
+     * @return void
+     */
     public function add(): void
     {
+        $this->request->allowMethod(['post']);
+
         $book = $this->Books->newEmptyEntity();
-        $book = $this->Books->patchEntity(
-            $book,
-            $this->request->getData()
-        );
+        $book = $this->Books->patchEntity($book, $this->request->getData());
 
         if ($this->Books->save($book)) {
-            $this->response = $this->response->withStatus(201);
-            $this->set([
-                'success' => true,
-                'message' => 'Thêm sách thành công',
-                'data'    => $book,
-            ]);
-        } else {
-            $this->response = $this->response->withStatus(400);
-            $this->set([
-                'success' => false,
-                'message' => 'Thêm sách thất bại',
-                'errors'  => $book->getErrors(),
-            ]);
+            $this->jsonResponse(201, true, 'Book created successfully.', $book);
+
+            return;
         }
-        $this->viewBuilder()
-             ->setClassName('Json')
-             ->setOption('serialize', ['success', 'message', 'data', 'errors']);
+
+        $this->jsonResponse(422, false, 'Validation failed. Book could not be created.', null, $book->getErrors());
     }
 
+    /**
+     * PUT|PATCH /api/books/:id
+     *
+     * Update an existing book. Expects JSON body with fields to update.
+     *
+     * @param string $id Book ID.
+     * @return void
+     */
     public function edit(string $id): void
     {
+        $this->request->allowMethod(['put', 'patch']);
+
         $book = $this->Books->get($id);
-        $book = $this->Books->patchEntity(
-            $book,
-            $this->request->getData()
-        );
+        $book = $this->Books->patchEntity($book, $this->request->getData());
 
         if ($this->Books->save($book)) {
-            $this->set([
-                'success' => true,
-                'message' => 'Cập nhật thành công',
-                'data'    => $book,
-            ]);
-        } else {
-            $this->response = $this->response->withStatus(400);
-            $this->set([
-                'success' => false,
-                'message' => 'Cập nhật thất bại',
-                'errors'  => $book->getErrors(),
-            ]);
+            $this->jsonResponse(200, true, 'Book updated successfully.', $book);
+
+            return;
         }
-        $this->viewBuilder()
-             ->setClassName('Json')
-             ->setOption('serialize', ['success', 'message', 'data', 'errors']);
+
+        $this->jsonResponse(422, false, 'Validation failed. Book could not be updated.', null, $book->getErrors());
     }
 
+    /**
+     * DELETE /api/books/:id
+     *
+     * Delete a book by its ID.
+     *
+     * @param string $id Book ID.
+     * @return void
+     */
     public function delete(string $id): void
     {
         $this->request->allowMethod(['delete']);
+
         $book = $this->Books->get($id);
 
         if ($this->Books->delete($book)) {
-            $this->set([
-                'success' => true,
-                'message' => 'Xóa sách thành công',
-            ]);
-        } else {
-            $this->response = $this->response->withStatus(400);
-            $this->set([
-                'success' => false,
-                'message' => 'Xóa thất bại',
-            ]);
+            $this->jsonResponse(200, true, 'Book deleted successfully.');
+
+            return;
         }
-        $this->viewBuilder()
-             ->setClassName('Json')
-             ->setOption('serialize', ['success', 'message']);
+
+        $this->jsonResponse(500, false, 'Book could not be deleted. Please try again.');
     }
 }
